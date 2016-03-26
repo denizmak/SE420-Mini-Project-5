@@ -192,7 +192,12 @@ public class CommissionCalculator implements iCommissionCalculator
 			// commission in.
 			if (netSales >= minimumSalesForBonusCommission) 
 			{
-				netSales += s.getTransactionAmount();
+				/**
+				 * DZ netSales += s.getTransactionAmount();
+				 * DZ this line is unnecessary here, but it is missing in the following if condition
+				 * DZ extra line (moved from following if condition)
+				 * DZ This line is required in the next if condition
+				 */
 				bonusCommission += s.getTransactionAmount() * bonusCommissionRate;
 			} 
 			
@@ -201,6 +206,15 @@ public class CommissionCalculator implements iCommissionCalculator
 				// We need to determine how much of this sale qualifies for
 				// commission.
 				double commissionableAmount = (netSales + s.getTransactionAmount()) - minimumSalesForBonusCommission;
+				
+				netSales += s.getTransactionAmount();
+				/**
+				 * DZ 
+				 * DZ this line is missing here so that when next sale is processed previous if condition is executed
+				 * DZ line missing
+				 * DZ This line is required so that net sales is updated for the next sale process
+				 */
+				
 				bonusCommission += commissionableAmount * bonusCommissionRate;
 			} 
 			
