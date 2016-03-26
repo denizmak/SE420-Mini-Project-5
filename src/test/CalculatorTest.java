@@ -92,12 +92,12 @@ public class CalculatorTest
 	}
 	
 	/**
-	 * This test checks if commission is properly calculated for probationary experience level seller
+	 * This test checks if commission is properly calculated for probationary level seller
 	 * when minimum sales is not reached
 	 * @throws Exception
 	 */
 	@Test
-	public void testingProbationaryExperienceBelowMinimum() throws Exception 
+	public void testingProbationaryExperienceCommissionBelowMinimum() throws Exception 
 	{
 		//create CommissionCalculator object with valid input
 		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
@@ -116,5 +116,253 @@ public class CalculatorTest
 		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
 	}
 	
+	/**
+	 * This test checks if commission is properly calculated for probationary level seller
+	 * when minimum sales is matched exactly
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceCommissionMinimum() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//test if minimum sale constant is correct for probationary level commission
+		assertEquals(2000.00, cc.getMinimumSales(), 0.01);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(2000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals(0.00, cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
 	
+	/**
+	 * This test checks if commission is properly calculated for probationary level seller
+	 * and for basic item
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceCommissionBasic() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.02), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	/**
+	 * This test checks if commission is properly calculated for probationary level seller
+	 * and for maintenance item
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceCommissionMaintenance() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.03), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	/**
+	 * This test checks if commission is properly calculated for probationary level seller
+	 * and for replacement item
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceCommissionReplacement() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.REPLACEMNET_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.01), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	/**
+	 * This test checks if commission is properly calculated for probationary level seller
+	 * and for consulting services
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceCommissionConsulting() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.CONSULTING_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.03), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * This test checks if bonus commission is properly calculated for probationary level seller
+	 * and for basic item
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceBonusCommissionBasic() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 58000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(60000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((58000 * 0.02), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals((10000 * 0.005), cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	/**
+	 * This test checks if bonus commission is properly calculated for probationary level seller
+	 * and for maintenance item
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceBonusCommissionMaintenance() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.03), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	/**
+	 * This test checks if bonus commission is properly calculated for probationary level seller
+	 * and for replacement item
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceBonusCommissionReplacement() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.REPLACEMNET_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.01), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
+	
+	
+	/**
+	 * This test checks if bonus commission is properly calculated for probationary level seller
+	 * and for consulting services
+	 * @throws Exception
+	 */
+	@Test
+	public void testingProbationaryExperienceBonusCommissionConsulting() throws Exception 
+	{
+		//create CommissionCalculator object with valid input
+		CommissionCalculator cc =  new CommissionCalculator("Deni", iCommissionCalculator.PROBATIONARY);
+		
+		//add sales to cc object to be below minimum required for commission
+		cc.addSale(iCommissionCalculator.BASIC_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.MAINTENANCE_ITEM, 1000.00);
+		cc.addSale(iCommissionCalculator.CONSULTING_ITEM, 1000.00);
+		
+		//check if sales are adding correctly
+		assertEquals(3000.00, cc.getTotalSales(), 0.01);
+		
+		//check if proper commission amount is returned
+		assertEquals((1000 * 0.03), cc.calculateCommission(), 0.01);
+		
+		//check if proper bonus commission amount is returned
+		assertEquals(0.00, cc.calculateBonusCommission(), 0.01);
+	}
 }
